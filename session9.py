@@ -64,10 +64,17 @@ def named_tuple_cal(population):
     age = []
     blood_group = []
     for i in named_tuple_list:
-        lan.append(i.current_location[0])
-        lon.append(i.current_location[1])
-        age.append(calculateAge(i.DOB))
-        blood_group.append(i.blood_type)
+        if 'current_location' in i._fields : 
+            if  'DOB' in i._fields : 
+                if 'blood_type' in i._fields : 
+                    lan.append(i.current_location[0])
+                    lon.append(i.current_location[1])
+                    age.append(calculateAge(i.DOB))
+                    blood_group.append(i.blood_type)
+        # lan.append(i.current_location[0])
+        # lon.append(i.current_location[1])
+        # age.append(calculateAge(i.DOB))
+        # blood_group.append(i.blood_type)
     try:
         largest_blood_type = statistics.mode(blood_group)
     except:
@@ -83,7 +90,7 @@ def named_tuple_cal(population):
             if v > mc :
                 m = k
                 mc = v
-        largest_blood_type = mc
+            largest_blood_type = mc
     mean_location = (np.mean(lan),np.mean(lon))
     maximum_age = np.max(age)
     average_age = np.mean(age)
@@ -106,10 +113,13 @@ def dict_cal(population):
     age = []
     blood_group = []
     for i in dict_list:
-        lan.append(i['current_location'][0])
-        lon.append(i['current_location'][1])
-        age.append(calculateAge(i['DOB']))
-        blood_group.append(i['blood_type'])
+        if 'current_location' in list(i.keys()) : 
+            if  'DOB' in list(i.keys()) : 
+                if 'blood_type' in list(i.keys()) : 
+                    lan.append(i['current_location'][0])
+                    lon.append(i['current_location'][1])
+                    age.append(calculateAge(i['DOB']))
+                    blood_group.append(i['blood_type'])
     try:
         largest_blood_type = statistics.mode(blood_group)
     except:
@@ -125,7 +135,7 @@ def dict_cal(population):
             if v > mc :
                 m = k
                 mc = v
-        largest_blood_type = m
+            largest_blood_type = m
     #     largest_blood_type = statistics.multimode(blood_group)
     mean_location = (np.mean(lan),np.mean(lon))
     maximum_age = np.max(age)
